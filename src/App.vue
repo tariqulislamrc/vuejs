@@ -1,13 +1,18 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/"> <font-awesome-icon icon="user-secret" /> Home</router-link> |
+      <router-link :to="{name: 'login'}"> <font-awesome-icon icon="sign-in-alt" /> Login</router-link> |
       <router-link to="/about">About</router-link>
     </div>
+
     <router-view/>
+
+
+
   </div>
 </template>
 
+<style src="toastr/build/toastr.min.css"></style>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
