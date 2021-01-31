@@ -1,37 +1,19 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link :to="{name: 'login'}"> <font-awesome-icon icon="sign-in-alt" /> Login</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-
-    <router-view/>
-
-
-
+    <preloader v-show="this.$store.state.preloader"></preloader>
+    <router-view></router-view>
   </div>
 </template>
+<script>
+import preloader from "./components/layout/preloader";
 
-<style src="toastr/build/toastr.min.css"></style>
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+export default {
+  name: 'app',
+  components: {
+    preloader
+  }
 }
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+</script>
+<style lang="scss" src="./assets/sass/bootstrap/bootstrap.scss"></style>
+<style lang="scss" src="toastr/toastr.scss"></style>
+<style src="./assets/css/custom_css/toastr_notificatons.css"></style>

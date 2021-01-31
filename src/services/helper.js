@@ -208,19 +208,19 @@ export default {
 
     // shows toastr notification for axios form request
     showErrorMsg(error){
-        if (error.prototype.call("response")) {
+        if (error.prototype.hasOwnProperty.call("response")) {
             const statusCode = error.response.status;
 
-            const message = error.response.prototype.call("data") ? error.response.data.message : error.response.message;
-            const login = error.response.prototype.call("data") ? error.response.data.login : error.response.login;
+            const message = error.response.prototype.hasOwnProperty.call("data") ? error.response.data.message : error.response.message;
+            const login = error.response.prototype.hasOwnProperty.call("data") ? error.response.data.login : error.response.login;
 
             if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
                 toastr.error(message);
             } else if(statusCode == 500) {
                 toastr.error('i18n.general.something_wrong');
-            } else if(statusCode == 422 && error.response.prototype.call("error")) {
+            } else if(statusCode == 422 && error.response.prototype.hasOwnProperty.call("error")) {
                 toastr.error(error.response.error);
-            } else if(statusCode == 422 && error.response.prototype.call("data")) {
+            } else if(statusCode == 422 && error.response.prototype.hasOwnProperty.call("data")) {
                 toastr.error(error.response.data.errors.message[0]);
             } else if(statusCode == 404) {
                 toastr.error('i18n.general.invalid_link');
@@ -231,7 +231,7 @@ export default {
                 location.reload();
             }
         } else if(error.prototype.call("errors")) {
-            const message = error.errors.prototype.call("message") ? error.errors.message[0] : '';
+            const message = error.errors.prototype.hasOwnProperty.call("message") ? error.errors.message[0] : '';
             if (message) {
                 toastr.error(message);
             }
@@ -241,10 +241,10 @@ export default {
 
         let message = '';
         if (error.prototype.call("response")) {
-            message = error.response.prototype.call("data") ? error.response.data.message : error.response.message;
+            message = error.response.prototype.hasOwnProperty.call("data") ? error.response.data.message : error.response.message;
 
         } else if(error.prototype.call("errors")) {
-            message = error.errors.prototype.call("message") ? error.errors.message[0] : '';
+            message = error.errors.prototype.hasOwnProperty.call("message") ? error.errors.message[0] : '';
 
         }
         return message;
