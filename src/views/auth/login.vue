@@ -48,11 +48,6 @@
                         <input type="submit" value="Sign In"  class="btn btn-primary btn-block mb-3"/>
                       </div>
                     </div>
-                    <div class="col-sm-12 text-center" v-if="getConfig('reset_password')">
-                      <router-link to="/password" exact>
-                        Reset Here
-                      </router-link>
-                    </div>
                   </div>
                 </vue-form>
               </div>

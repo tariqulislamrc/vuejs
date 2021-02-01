@@ -6,6 +6,7 @@ import store from '../store/index'
 
 import guestRoutes from './guest'
 import authRoutes from './auth'
+import errorRoutes from './error'
 
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
@@ -16,19 +17,26 @@ let pageLoader;
 
 const routes = [
   {
-    path: '/',                      // all the routes which can be access without authentication
-    component: () => import('../layouts/guest-page' /* webpackChunkName: "js/guest-page" */),
+    path: '/',                      
+    component: () => import('../layouts/guest-page'),
     meta: { validate: ['is_guest'] },
     children: [
       ...guestRoutes,
     ]
   },
   {
-    path: '/',                      // all the routes which can be access without authentication
-    component: () => import('../layouts/default-page' /* webpackChunkName: "js/guest-page" */),
+    path: '/',                      
+    component: () => import('../layouts/default-page' ),
     meta: { validate: ['is_auth'] },
     children: [
       ...authRoutes,
+    ]
+  },
+  {
+    path: '/',                  
+    component: () => import('../layouts/error-page' ),
+    children: [
+      ...errorRoutes,
     ]
   }
 ];

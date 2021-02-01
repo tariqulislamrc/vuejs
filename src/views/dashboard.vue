@@ -4,7 +4,10 @@
 
 <script>
 export default {
-name: "dashboard"
+name: "dashboard",
+mounted () {
+    this.$router.push('/product');
+}
 }
 </script>
 

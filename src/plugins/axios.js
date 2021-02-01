@@ -2,6 +2,7 @@
 
 import Vue from 'vue';
 import axios from "axios";
+import Cookie from 'vue-cookie';
 
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
@@ -11,6 +12,7 @@ import axios from "axios";
 
 axios.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded'
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+axios.defaults.headers.common['Authorization'] = 'Bearer ' + Cookie.get('auth_token');
 
 let config = {
   baseURL: process.env.baseURL || process.env.apiUrl || "http://laravel.test"

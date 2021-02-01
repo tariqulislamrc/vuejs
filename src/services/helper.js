@@ -2,6 +2,7 @@ import store from '../store/index'
 import Vue from 'vue'
 import $ from 'jquery'
 import toastr from 'toastr'
+import moment from 'moment'
 store.dispatch('setConfig',{loaded: false});
 
 export default {
@@ -29,9 +30,10 @@ export default {
     // to logout user
     logout(){
         return Vue.axios.post('/api/auth/logout').then(response =>  {
+            console.log(response)
             this.clearSession();
-            store.dispatch('setConfig',response.config)
-            .success(response.message);
+            store.dispatch('setConfig',response.config);
+            toastr.success(response.data.message);
         }).catch(error => {
             this.showErrorMsg(error);
         });
@@ -208,30 +210,30 @@ export default {
 
     // shows toastr notification for axios form request
     showErrorMsg(error){
-        if (error.prototype.hasOwnProperty.call("response")) {
+        if (Object.prototype.hasOwnProperty.call(error, "response")) {
             const statusCode = error.response.status;
 
-            const message = error.response.prototype.hasOwnProperty.call("data") ? error.response.data.message : error.response.message;
-            const login = error.response.prototype.hasOwnProperty.call("data") ? error.response.data.login : error.response.login;
+            const message = Object.prototype.hasOwnProperty.call(error.response, "data") ? error.response.data.message : error.response.message;
+            const login = Object.prototype.hasOwnProperty.call(error.response, "data") ? error.response.data.login : error.response.login;
 
             if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
                 toastr.error(message);
             } else if(statusCode == 500) {
-                toastr.error('i18n.general.something_wrong');
-            } else if(statusCode == 422 && error.response.prototype.hasOwnProperty.call("error")) {
+                toastr.error('Something went wrong');
+            } else if(statusCode == 422 && Object.prototype.hasOwnProperty.call(error.response, "error")) {
                 toastr.error(error.response.error);
-            } else if(statusCode == 422 && error.response.prototype.hasOwnProperty.call("data")) {
+            } else if(statusCode == 422 && Object.prototype.hasOwnProperty.call(error.response, "data")) {
                 toastr.error(error.response.data.errors.message[0]);
             } else if(statusCode == 404) {
-                toastr.error('i18n.general.invalid_link');
+                toastr.error('Invalid link');
             }
 
             if (login) {
                 this.clearSession();
                 location.reload();
             }
-        } else if(error.prototype.call("errors")) {
-            const message = error.errors.prototype.hasOwnProperty.call("message") ? error.errors.message[0] : '';
+        } else if(error("errors")) {
+            const message = Object.prototype.hasOwnProperty.call(error.errors, "data") ? error.errors.message[0] : '';
             if (message) {
                 toastr.error(message);
             }
@@ -240,11 +242,11 @@ export default {
     fetchDataErrorMsg(error){
 
         let message = '';
-        if (error.prototype.call("response")) {
-            message = error.response.prototype.hasOwnProperty.call("data") ? error.response.data.message : error.response.message;
+        if (error("response")) {
+            message = Object.prototype.hasOwnProperty.call(error.response, "data") ? error.response.data.message : error.response.message;
 
-        } else if(error.prototype.call("errors")) {
-            message = error.errors.prototype.hasOwnProperty.call("message") ? error.errors.message[0] : '';
+        } else if(error("errors")) {
+            message = Object.prototype.hasOwnProperty.call(error.errors, "message") ? error.errors.message[0] : '';
 
         }
         return message;
@@ -319,6 +321,17 @@ export default {
 
     getAuthToken(){
         return Vue.cookie.get('auth_token');
+    },
+
+      // to get date time in desired format
+      formatDateTime(date){
+        if(!date)
+            return;
+
+        var date_format = 'DD-MM-YYY';
+        var time_format = "h:mm a";
+
+        return moment(date).format(date_format+' '+time_format);
     },
 
 }

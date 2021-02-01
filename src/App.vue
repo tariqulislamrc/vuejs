@@ -14,6 +14,9 @@ export default {
   }
 }
 </script>
-<style lang="scss" src="./assets/sass/bootstrap/bootstrap.scss"></style>
 <style lang="scss" src="toastr/toastr.scss"></style>
 <style src="./assets/css/custom_css/toastr_notificatons.css"></style>
+<style lang="" src="v-tooltip/dist/v-tooltip.css"></style>
+<style lang="" src="vuejs-dialog/dist/vuejs-dialog.min.css">
+  
+</style>
