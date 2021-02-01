@@ -1,14 +1,12 @@
 <template>
   <header class="header">
     <nav class="navbar navbar-expand-lg navbar-light">
-      <router-link to="/" class="logo">
+      <router-link to="/product" class="logo">
         <!-- Add the class icon to your logo image or logo icon to add the margining -->
         <img :src='require("../../assets/img/logo.png")' alt="logo"/>
       </router-link>
       <div class="navbar-collapse">
-        <b-navbar-nav class="vuemenu navigation Menu -horizontal">
-          <b-nav-item :to="{ name: 'product' }">Product</b-nav-item>
-        </b-navbar-nav>
+       
 
       </div>
 
@@ -76,8 +74,5 @@ export default {
 }
 </script>
 <style scoped>
-.navbar-nav .nav-link {
-  color: #ffffff !important;
-  font-weight: 700;
-}
+
 </style>
